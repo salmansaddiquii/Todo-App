@@ -1,0 +1,31 @@
+<h1 class="my-4 text-center">Completed Tasks</h1>
+<%= link_to 'All Tasks', tasks_path, class: 'btn btn-primary mb-3' %>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover mx-auto" style="width: 80%;">
+    <thead class="table-light">
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Category</th>
+        <th>Priority</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.title %></td>
+          <td><%= task.description %></td>
+          <td><%= task.due_date.strftime("%B %d, %Y") %></td>
+          <td><%= task.category %></td>
+          <td><%= task.priority %></td>
+          <td>
+            <%= link_to 'Edit', edit_task_path(task), class: 'btn btn-warning btn-sm' %>
+            <%= button_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

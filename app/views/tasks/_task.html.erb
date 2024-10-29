@@ -1,0 +1,16 @@
+<div class="task border p-3 mb-3 rounded bg-light">
+  <h2 class="text-primary"><%= task.title %></h2>
+  <p><strong>Description:</strong> <%= task.description %></p>
+  <p><strong>Due Date:</strong> <%= task.due_date.strftime("%B %d, %Y %I:%M %p") if task.due_date %></p>
+  <p><strong>Category:</strong> <%= task.category %></p>
+  <p><strong>Status:</strong> <%= task.completed ? 'Completed' : 'Pending' %></p>
+  <p><strong>Priority:</strong> <%= task.priority %></p>
+
+  <% if current_user == task.user %>
+    <div class="mt-2">
+      <%= link_to 'Edit', edit_task_path(task), class: 'btn btn-warning me-2 mb-2', data: { turbo_frame: 'task_form' } %>
+      <%= button_to 'Delete', task_path(task), method: :delete, class: 'btn btn-danger me-2 mb-2', data: { confirm: 'Are you sure?' } %>
+      <%= button_to 'Complete', complete_task_path(task), method: :patch, class: 'btn btn-success mb-2', data: { confirm: 'Are you sure?' } unless task.completed? %>
+    </div>
+  <% end %>
+</div>
